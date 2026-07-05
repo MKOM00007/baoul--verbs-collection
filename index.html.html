@@ -1,0 +1,1208 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Online Data Collection - Verbs of Location</title>
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f6f9;
+            transition:0.5s
+        }
+        
+        body.dark {
+            color:white;
+            background:black;
+        }
+        
+        body.dark .questionnaire{
+            background:black;
+        }
+        
+        body.dark h2 {
+            color:white;
+        }
+        body.dark h5 {
+            color:white;
+        }
+        
+       
+        body.dark input {
+            background:none;
+            color: #fff;
+            border-color: #777;
+        }
+        body.dark input::placeholder {
+            color: #ccc;
+        }
+        
+        body.dark .questionnaire  .q-item{
+          background:#111;  
+        }
+        
+        
+        body.dark .top {
+            background:#222;
+            color:#eee;
+        }
+        
+        body.dark #menu {
+            color:white;
+            background:#222;
+        }
+
+        body.dark .menu-cache {
+            background:#111;
+            color:white;
+        }
+
+        
+        body.dark .menu-cache .verb {
+            background:#222;
+            color:#eee;
+        }
+        body.dark .menu-cache table, body.dark .menu-cache th, body.dark .menu-cache td {
+            border-color:#555;
+        }
+        body.dark .menu-cache textarea {
+            background:#222;
+            color:#eee;
+            border-color:#555;
+        }
+
+        body.dark .objectif {
+            background:#111;
+            color:#eee;
+        }
+        body.dark .texte {
+            background:#222;
+        }
+
+
+#liste {
+    text-align:center;
+    box-shadow:0 0 2px grey;
+    border-radius:5px;
+    margin:17px;
+    padding:8px;
+}
+
+
+table {
+    border-collapse:collapse;
+    width:80%;
+    margin:15px auto;
+}
+th, tr, td {
+    padding:20px;
+}
+
+
+table th{
+    padding:23px;
+}
+
+.menu-cache .verb  {
+   height:0; 
+   overflow:none;
+   background:aliceblue;
+   margin:8px;
+   overflow:hidden ;
+   transition:1s ease;
+   
+}
+
+.menu-cache .verb.visible {
+    height:30vh;
+    overflow:scroll;
+}
+
+.contour {
+    width:100%;
+    inset:0;
+    background:rgba(0,0,0,0.5);
+    position:fixed;
+    z-index:5;
+    left:-200%;
+}
+
+.contour.active {
+    left:0;
+}
+
+
+  #menu {
+            position:fixed;
+            top:50%;
+            right:0;
+            background:white;
+            box-shadow:0 0 4px grey;
+            font-size:24px;
+            border-radius:50%;
+            padding:2px 8px;
+            margin-right:8px;
+            font-weight:bolder;
+           
+            z-index:8;
+            transition:0.5s ease;
+            font-size:28px;
+            cursor:pointer; 
+   }
+   
+   #menu.active {
+       top:90%;
+       right:40%;
+   }
+
+.menu-cache {
+    width:100%;
+    position:fixed;
+    top:-100%;
+    z-index:8;
+    background:white;
+    box-shadow:0 0 3px grey;
+    padding:12px;
+    transition:0.4s;
+    height:80%;
+    overflow:scroll;
+}
+
+.menu-cache p {
+    margin:18px;
+}
+
+.menu-cache p select {
+    float:right;
+    cursor:pointer;
+}
+
+.menu-cache.active {
+    top:0;
+}
+
+.menu-cache #mode {
+    margin:18px;
+}
+
+.menu-cache #mode.active .parent {
+    background:green;
+}
+
+.menu-cache #mode.active .parent .enfant {
+    float:right;
+    background:white;
+}
+
+.menu-cache #mode .parent {
+    width:45px;
+    height:22px;
+    border:1px solid grey;
+    border-radius:20px;
+    padding-bottom:8px;
+    cursor:pointer; 
+}
+
+.menu-cache #mode .parent .enfant {
+    width:20px;
+    height:20px;
+    cursor:pointer;
+    border-radius:50%;
+    background:grey;
+}
+
+.menu-cache #mode .parent {
+    float:right;
+}
+
+.menu-cache textarea {
+    width:100%;
+    min-height:70px;
+    margin-block:10px;
+    padding:10px;
+    border-radius:6px;
+    border:1px solid lightgrey;
+    font-family:inherit;
+    resize:vertical;
+}
+
+
+.menu-cache .titre-avis {
+    margin:15px auto 5px auto;
+    display:block;
+}
+
+.menu-cache .btn-avis {
+    background:#345;
+    color:white;
+    border:none;
+    padding:8px 16px;
+    border-radius:6px;
+    cursor:pointer;
+    font-weight:bold;
+    transition:background 0.2s;
+    display:block;
+    margin:10px auto;
+}
+.menu-cache .btn-avis:hover { background:#e67e22; }
+.menu-cache .btn-avis:disabled { opacity:0.6; cursor:not-allowed; }
+
+
+        
+        header {
+            background: aliceblue;
+            padding: 15px;
+            color: #345;
+            text-align: center;
+        }
+        body.dark header {
+            background:#555;
+        }
+        header h1 {
+            position: fixed;
+            background: aliceblue;
+            top: 0;
+            left: 0;
+            width: 100%;
+            padding: 12px;
+            z-index: 2;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        body.dark header h1 {
+            background:#555;
+            color:white;
+        }
+        .top {
+            box-shadow: 0 0 3px lightgrey;
+            padding: 15px;
+            border-radius: 4px;
+            text-align: center;
+            margin-inline: 12px;
+            color: #543;
+            margin-top: 80px;
+            background: white;
+        }
+        .top h4 {
+            margin-top: 8px;
+            font-style: italic;
+        }
+        h2.partie-title {
+            text-align: center;
+            margin-top: 35px;
+            color: #345;
+            text-transform: uppercase;
+            font-size: 1.4rem;
+        }
+        body.dark h2.partie-title {
+            color: #fff;
+        }
+        
+       
+        .overlay {
+            width: 100%;
+            height: 100%;
+            inset: 0;
+            background-color: rgba(0,0,0,0.8);
+            position: fixed;
+            z-index: 10;
+            display:flex;
+            justify-content: center;
+            align-items: center;
+            overflow-y: auto;
+        }
+
+        .conteneur {
+            width: 100%;
+            height: 100%;
+            inset: 0;
+            background-color: rgba(0,0,0,0.8);
+            position: fixed;
+            z-index: 15;
+            display:none;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .conteneur.active {
+            display:flex;
+        }
+
+        
+        .objectif {
+            display:flex;
+            flex-direction:column;
+        }
+        .objectif h2 {
+            margin-bottom:10px;
+            flex-shrink:0;
+        }
+        
+        /* BUGFIX (robustesse) : hauteur fixe (70vh) remplacée par flex:1, pour que
+           la zone de texte occupe tout l'espace restant sous le titre, quelle que
+           soit la taille d'écran, au lieu de risquer de déborder. */
+        .texte {
+            background:aliceblue;
+            flex:1;
+            min-height:0;
+            overflow:auto;
+        }
+
+        .btn-annuler {
+            color:grey;
+            position:absolute;
+            z-index:16;
+            bottom:15px;
+            left:50%;
+            transform:translateX(-50%);
+            background:white;
+            border-radius:50%;
+            padding:6px 14px;
+            font-size:28px;
+            cursor:pointer;
+            box-shadow:0 0 4px rgba(0,0,0,0.3);
+        }
+        
+        form {
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+            padding: 25px;
+            border-radius: 8px;
+            background: white;
+        }
+        form h4 { text-align: center; margin-bottom: 15px; font-size: 1.3rem;}
+        form input, form select {
+            width: 100%;
+            margin-block: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid lightgrey;
+        }
+        form input:focus, form select:focus {
+            outline: none;
+            border-color: #e67e22;
+        }
+        .btn-envoyer {
+            text-align: center;
+            background: #345;
+            color: white;
+            padding: 12px;
+            border-radius: 8px;
+            cursor: pointer;
+            border: none;
+            font-weight: bold;
+            transition: background 0.3s;
+            font-family: inherit;
+            font-size: 1rem;
+            width: 100%;
+        }
+        .btn-envoyer:hover { background: #e67e22; }
+        .btn-envoyer:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+        
+        
+
+        /* Questionnaire Déroulant (Partie 1) */
+        .questionnaire {
+            box-shadow: 0 0 5px lightgrey;
+            border-radius: 8px;
+            overflow-y: scroll;
+            text-align: center;
+            height: 65vh;
+            margin: 15px;
+            padding: 15px;
+            background: aliceblue;
+        }
+        .q-item {
+            background: white;
+            padding: 20px;
+            margin-bottom: 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+        .q-item span.num, .question span.num {
+            font-weight: bolder;
+            background: orange;
+            border-radius: 50%;
+            padding: 4px 9px;
+            color: white;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .q-item h5 {
+            font-size: 1.1rem;
+            color: #2c3e50;
+            margin-bottom: 8px;
+        }
+        .q-item img {
+            width:100%;
+            max-width: 280px;
+            height:auto;
+            border-radius: 8px;
+            display: block;
+            margin: 10px auto;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .q-item input[type="text"], .question input[type="text"] {
+            width: 100%;
+            max-width: 450px;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid lightgrey;
+            margin-block: 10px;
+        }
+
+        /* Boutons Audio */
+        .audio-zone {
+            margin-block: 10px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+        .btn-audio {
+            background: #345;
+            color: white;
+            border: none;
+            padding: 8px 18px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 0.9rem;
+            font-weight: bold;
+            transition: background 0.2s;
+        }
+        .btn-audio:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        .btn-audio.recording { background: #e74c3c; animation: pulse 1.5s infinite; }
+        audio { max-width: 100%; height: 32px; }
+        
+        
+         .btn-audio i {
+             margin:4px;
+         }
+
+          .question .text-item {
+            margin-inline: 45px;
+            margin-bottom: 20px;
+            padding: 20px;
+            box-shadow: 0 0 4px grey;
+            text-align: center;
+            border-radius: 8px;
+            background: white;
+            font-size: 1.1rem;
+        }
+        body.dark .question .text-item {
+          color:white;
+          background:#111;  
+        }
+
+        /* Clavier virtuel Baoulé (caractères spéciaux : ɛ, ɔ, ŋ, tons...) */
+        .btn-clavier {
+            background:#345;
+            color:white;
+            border:none;
+            border-radius:6px;
+            padding:8px 12px;
+            margin-left:6px;
+            cursor:pointer;
+            font-size:0.9rem;
+            vertical-align:middle;
+            transition:background 0.2s;
+        }
+        .btn-clavier:hover { background:#e67e22; }
+        .btn-clavier.active { background:#e67e22; }
+
+        .clavier-baoule {
+            display:none;
+            grid-template-columns: repeat(6, 1fr);
+            gap:6px;
+            max-width:420px;
+            margin:10px auto 5px auto;
+            padding:10px;
+            background:#eef3f8;
+            border-radius:8px;
+            box-shadow: inset 0 0 4px rgba(0,0,0,0.1);
+        }
+        .clavier-baoule.active {
+            display:grid;
+        }
+        .clavier-touche {
+            background:white;
+            border:1px solid lightgrey;
+            border-radius:6px;
+            padding:8px 0;
+            font-size:1.15rem;
+            cursor:pointer;
+            transition:background 0.15s;
+        }
+        .clavier-touche:hover {
+            background:#f39c12;
+            color:white;
+        }
+        .clavier-space {
+            grid-column: span 3;
+            font-size:0.8rem;
+        }
+        .clavier-del {
+            grid-column: span 3;
+        }
+        body.dark .clavier-baoule {
+            background:#222;
+        }
+        body.dark .clavier-touche {
+            background:#333;
+            color:white;
+            border-color:#555;
+        }
+
+        /* Bouton de soumission finale */
+        #btn-final-submit {
+            margin: 28px auto;
+            display:block;
+            background:orange;
+            box-shadow:0 0 3px grey;
+            max-width:400px;
+        }
+
+      .objectif p {
+          padding:8px;
+          font-weight:bolder;
+          width: 90%;
+          max-width: 450px;
+          margin-inline: auto;
+         margin-block:4px;
+          box-shadow:0 0 4px lightgrey;
+          background:white;
+      }
+
+        
+        footer {
+            background:black;
+            color: white;
+            padding: 20px;
+            text-align: center;
+            margin-top: 50px;
+        }
+
+        @keyframes pulse {
+            0% { opacity: 1; }
+            50% { opacity: 0.7; }
+            100% { opacity: 1; }
+        }
+        
+        .questionnaire::-webkit-scrollbar{
+    width:12px;
+}
+
+.questionnaire::-webkit-scrollbar-track {
+    background:grey;
+    border-radius:12px;
+}
+
+
+.questionnaire::-webkit-scrollbar-thumb {
+    background:orange;
+    height:6px;
+    border-radius:28px;
+  }
+  
+  
+  
+  .texte::-webkit-scrollbar{
+    width:12px;
+}
+
+.texte::-webkit-scrollbar-track{
+  background:white;
+  
+}
+
+.texte::-webkit-scrollbar-thumb {
+    background:lightgrey;
+    height:6px;
+    border-radius:28px;
+  }
+  
+  #chevron.active {
+      transform:rotate(180deg);
+  }
+    </style>
+</head>
+<body>
+<div class="conteneur">
+<div class="objectif" style="background:white; margin:15px;padding:12px; overflow:hidden; height:80vh;border-radius:5px;">
+    <h2 style="text-align:center;">Objectif de l'étude</h2>
+<div class="texte">
+  <p>
+        Dans le cadre de la préparation de mon mémoire de <strong>Master</strong> en anglais à l'Université Félix Houphouët-Boigny, je mène une étude intitulée <em>"A Comparative Analysis of Verbs of Location in English and Baoulé"</em>.
+    </p>
+
+    <p>
+        L'objectif de cette recherche est d'analyser et de comparer les verbes de localisation en anglais et en baoulé afin de mieux comprendre leur fonctionnement, leurs similitudes, leurs différences et leurs particularités d'emploi dans les deux langues. Pour atteindre cet objectif, il est essentiel de recueillir des données authentiques auprès de locuteurs natifs du baoulé.
+    </p>
+
+    <p>
+        Je vous invite donc à participer à cette étude en répondant aux questions qui vous seront posées et en remplissant le formulaire de collecte de données. Votre contribution est précieuse, car elle permettra d'obtenir des données fiables et représentatives, indispensables à la qualité des résultats de cette recherche.
+    </p>
+
+    <p>
+        Il n'y a ni bonne ni mauvaise réponse. Je vous prie de répondre de la manière la plus spontanée et naturelle possible, selon votre usage habituel du baoulé. Toutes les informations recueillies resteront strictement confidentielles, seront anonymisées et utilisées exclusivement à des fins académiques.
+    </p>
+
+    <p>
+        Je vous remercie sincèrement pour votre disponibilité, votre confiance et votre précieuse contribution à l'avancement de cette recherche.
+    </p>
+</div>
+</div>
+<span id="annuler" class="btn-annuler">&#10005;</span>
+
+</div>
+
+    <div class="overlay" id="profile-overlay">
+        <form id="profile-form">
+            <h4>Formulaire du Locuteur</h4>
+            <input type="text" id="p-nom" placeholder="Nom" required> 
+            <input type="text" id="p-prenom" placeholder="Prénom" required> 
+            <input type="number" id="p-age" placeholder="Âge" min="1" max="120" required> 
+            
+            <label for="p-profession">Profession :</label>
+            <select id="p-profession">
+                <option value="Élève">Élève</option> 
+                <option value="Étudiant">Étudiant</option> 
+                <option value="Autre">Autre</option>       
+            </select> 
+            
+            <label for="p-genre">Genre :</label>
+            <select id="p-genre">
+                <option value="Masculin">Masculin</option>
+                <option value="Féminin">Féminin</option>  
+            </select>
+            
+            <button type="submit" class="btn-envoyer">Commencer le questionnaire</button>    
+        </form>  
+    </div>
+
+    <header>
+        <h1>Online Data Collection</h1>   
+        <div class="top">
+            <h3>Thème du mémoire :</h3>
+            <h4>"A comparative analysis of verbs of location in English and Baoulé"</h4>   
+        </div> 
+    </header>
+    
+    
+    
+    
+    
+    <h2 class="partie-title">Partie 1 : Stimulus par Image</h2>
+    
+    <div class="questionnaire">
+        <div class="q-item" data-q="img1">
+            <span class="num">1</span>
+            <h5>Situation : "The t-shirt is lying on the floor."</h5>
+            <img src="https://i.ibb.co/qFXCF8WH/file-0000000087a47243922434b294fad038.png" alt="Situation 1">
+            <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="q-item" data-q="img2">
+            <span class="num">2</span>
+            <h5>Situation : "The plate is on the table."</h5>
+            <img src="https://i.ibb.co/DPTnfsnK/file-00000000db08724398cf95c88c4834fb.png" alt="Situation 2">
+            <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="q-item" data-q="img3">
+            <span class="num">3</span>
+            <h5>Situation : "The cat is standing on the table."</h5>
+            <img src="https://i.ibb.co/QjK2tTqF/file-00000000b8247243be18592670ece419.png" alt="Situation 3">
+            <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="q-item" data-q="img4">
+            <span class="num">4</span>
+            <h5>Situation : "The bottle is on the table."</h5>
+            <img src="https://i.ibb.co/gLCNGdkb/file-0000000056fc7243b1a2931c421036b6.png" alt="Situation 4">
+            <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="q-item" data-q="img5">
+            <span class="num">5</span>
+            <h5>Situation : "The phone is on the counter."</h5>
+            <img src="https://i.ibb.co/h1smN97Y/file-0000000041a87243bb767b36df88fb01.png" alt="Situation 5">
+            <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+    </div> 
+
+    
+    
+    <h2 class="partie-title">Partie 2 : Stimulus Textuel Direct</h2>
+    
+    <div class="question">
+        <div class="text-item" data-q="txt1">
+            <span class="num">1</span> <strong>Situation :</strong> "The cup is sitting on the table." <br>
+            <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="text-item" data-q="txt2">
+            <span class="num">2</span> <strong>Situation :</strong> "The book is lying on the floor." <br>
+            <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="text-item" data-q="txt3">
+            <span class="num">3</span> <strong>Situation :</strong> "The bottle is standing on the table." <br>
+            <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="text-item" data-q="txt4">
+            <span class="num">4</span> <strong>Situation :</strong> "The picture is hanging on the wall." <br>
+            <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+
+        <div class="text-item" data-q="txt5">
+            <span class="num">5</span> <strong>Situation :</strong> "Yao is in Bouake." <br>
+            <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
+            <div class="audio-zone">
+                <button type="button" class="btn-audio">Enregistrer <i class="fas fa-microphone"></i></button>
+                <audio controls style="display:none;"></audio>
+            </div>
+        </div>
+    </div>
+    
+    <button type="button" id="btn-final-submit" class="btn-envoyer">Soumettre toutes mes réponses</button>
+
+    
+    <span id="menu">&#9776;</span>
+    
+   <div class="contour"> 
+   
+    <div class="menu-cache">
+     <h4 style="color:grey;margin:18px;">Visiteurs : <span id="visteur" style="float:right;color:orange;"><span id="visiteur-nombre">…</span> <i class="fas fa-eye"></i></span></h4>
+     <div id="mode">Mode sombre <div class="parent"><div class="enfant"></div></div></div>
+     
+     <p>Changer de police <select id="font-select">
+         <option value="Arial, Helvetica, sans-serif">Arial (moderne, neutre)</option>
+         <option value="'Segoe UI', Tahoma, sans-serif">Segoe UI (lisible, UI)</option>
+         <option value="'Trebuchet MS', sans-serif">Trebuchet MS (douce)</option>
+         <option value="Georgia, 'Times New Roman', serif">Georgia (élégante, lecture)</option>
+         <option value="Verdana, sans-serif">Verdana (très lisible)</option>
+         <option value="'Courier New', monospace">Courier New (machine à écrire)</option>
+     </select></p> 
+    
+     <p>Taille d'affichage <select id="size-select">
+         <option value="12">12</option>
+         <option value="18" selected>18</option>
+         <option value="28">28</option>
+     </select></p>
+     
+     
+      <h4 id="liste" style="background:orange;color:white;cursor:pointer;">Liste de quelques verbes répertoriés<i id="chevron" style="margin:8px;transition:0.5s;" class="fas fa-chevron-down"></i></h4>
+    <div class="verb">   
+        
+        <table border="1">
+    <tr>
+        <th>Anglais</th>
+        <th>Baoulé</th>
+    </tr>
+
+    <tr>
+        <td>To stand</td>
+        <td>Djin/Taka</td>
+    </tr>
+
+    <tr>
+        <td>To sit</td>
+        <td>Ti</td>
+    </tr>
+
+    <tr>
+        <td>To place</td>
+        <td>Sie</td>
+    </tr>
+
+    <tr>
+        <td>To lay</td>
+        <td>La/Nan'nan</td>
+    </tr>
+
+    <tr>
+        <td>To put</td>
+        <td>Sie</td>
+    </tr>
+
+    <tr>
+        <td>To hang</td>
+        <td>Kissa</td>
+    </tr>
+    
+    <tr>
+        <td>To be</td>
+        <td>wo</td>
+    </tr>
+</table>
+
+
+    </div>
+    
+    
+    <p class="titre-avis" style="border-bottom:3px solid orange;padding-block:5px;width:max-content;white-space:nowrap;">Laisser un avis</p>
+    <textarea id="avis-texte" placeholder="Votre avis sur le questionnaire..."></textarea>
+    <button type="button" id="btn-avis" class="btn-avis">Envoyer</button>
+        
+    </div>
+    </div>
+    
+    
+   
+    <footer>
+         <p>Made by Mathew's KOM</p>
+         <p>Tous droits réservés &copy; 2026</p>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-app.js";
+        import {
+            getFirestore, collection, addDoc,
+            doc, getDoc, setDoc, updateDoc, increment
+        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
+        import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
+
+        // 🔥 INSÉREZ VOS PROPRES PARAMÈTRES DE CONFIGURATION FIREBASE ICI
+        const firebaseConfig = {
+            apiKey: "VOTRE_API_KEY",
+            authDomain: "VOTRE_PROJET.firebaseapp.com",
+            projectId: "VOTRE_PROJET_ID",
+            storageBucket: "VOTRE_PROJET.appspot.com",
+            messagingSenderId: "VOTRE_SENDER_ID",
+            appId: "VOTRE_APP_ID"
+        };
+
+        // Initialisation globale
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        const storage = getStorage(app);
+
+        let profilUtilisateur = {};
+        const audiosEnregistres = {}; 
+
+        let activeRecordingBtn = null;
+
+        // 1. Fermeture de l'overlay et enregistrement du profil
+        document.getElementById('profile-form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            profilUtilisateur = {
+                nom: document.getElementById('p-nom').value.trim(),
+                prenom: document.getElementById('p-prenom').value.trim(),
+                age: document.getElementById('p-age').value,
+                profession: document.getElementById('p-profession').value,
+                genre: document.getElementById('p-genre').value,
+                dateSoumission: new Date().toISOString()
+            };
+            document.getElementById('profile-overlay').style.display = 'none';
+        });
+
+        // 2. Logique d'enregistrement audio indépendante pour chaque question
+        document.querySelectorAll('.btn-audio').forEach(btn => {
+            let localRecorder = null;
+            let localChunks = [];
+            let localStream = null;
+
+            btn.addEventListener('click', async function () {
+                const audioZone = this.parentElement;
+                const player = audioZone.querySelector('audio');
+                const questionId = this.closest('[data-q]').getAttribute('data-q');
+
+                if (!localRecorder || localRecorder.state === 'inactive') {
+                    if (activeRecordingBtn && activeRecordingBtn !== this) {
+                        alert("Veuillez d'abord arrêter l'enregistrement en cours avant d'en commencer un autre.");
+                        return;
+                    }
+                    try {
+                        localStream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                        localRecorder = new MediaRecorder(localStream);
+                        localChunks = [];
+
+                        localRecorder.ondataavailable = e => localChunks.push(e.data);
+                        localRecorder.onstop = () => {
+                            const blob = new Blob(localChunks, { type: 'audio/webm' });
+                            audiosEnregistres[questionId] = blob;
+
+                            player.src = URL.createObjectURL(blob);
+                            player.style.display = 'block';
+                        };
+
+                        localRecorder.start();
+                        this.innerHTML = 'Arrêter <i class="fas fa-stop"></i>';
+                        this.classList.add('recording');
+                        activeRecordingBtn = this;
+                    } catch (err) {
+                        alert("Impossible d'accéder au micro. Veuillez autoriser l'accès de l'application.");
+                    }
+                } else {
+                    localRecorder.stop();
+                    localStream.getTracks().forEach(track => track.stop());
+                    this.innerHTML = 'Recommencer <i class="fas fa-microphone"></i>';
+                    this.classList.remove('recording');
+                    activeRecordingBtn = null;
+                }
+            });
+        });
+
+        // 3. Traitement global et téléversement vers Firebase
+        document.getElementById('btn-final-submit').addEventListener('click', async function() {
+            if (!profilUtilisateur.nom) {
+                alert("Erreur : Veuillez rafraîchir la page et remplir d'abord vos informations d'identité.");
+                return;
+            }
+
+            this.disabled = true;
+            this.textContent = "Synchronisation cloud en cours...";
+
+            try {
+                const reponses = {};
+
+                document.querySelectorAll('[data-q]').forEach(item => {
+                    const qId = item.getAttribute('data-q');
+                    const textInput = item.querySelector('.text-ans');
+                    reponses[qId] = {
+                        texte: textInput ? textInput.value.trim() : "",
+                        audioUrl: "" 
+                    };
+                });
+
+                const timestamp = Date.now();
+                for (const qId in audiosEnregistres) {
+                    const blob = audiosEnregistres[qId];
+                    const fileRef = ref(storage, `audio_memoire/${profilUtilisateur.nom}_${timestamp}_${qId}.webm`);
+                    
+                    const snapshot = await uploadBytes(fileRef, blob);
+                    const downloadUrl = await getDownloadURL(snapshot.ref);
+                    reponses[qId].audioUrl = downloadUrl; 
+                }
+
+                await addDoc(collection(db, "collecte_linguistique"), {
+                    locuteur: profilUtilisateur,
+                    donneesBrutes: reponses
+                });
+
+                alert("Merci infiniment ! Vos réponses et enregistrements vocaux ont bien été transmis pour l'analyse linguistique de mon mémoire.");
+                window.location.reload();
+
+            } catch (error) {
+                console.error("Erreur Firebase : ", error);
+                alert("Une erreur est survenue lors de l'envoi. Assurez-vous que vos règles d'accès de sécurité Firebase Firestore et Storage sont bien configurées.");
+                this.disabled = false;
+                this.textContent = "Soumettre toutes mes réponses";
+            }
+        });
+        
+        // 4. Clavier virtuel Baoulé
+        const clavierBaouleTouches = [
+            'ɛ', 'ɔ', 'ŋ', 'Ɛ', 'Ɔ', 'Ŋ',
+            'à', 'á', 'â', 'è', 'é', 'ê',
+            'ì', 'í', 'î', 'ò', 'ó', 'ô',
+            'ù', 'ú', 'û', 'ɛ̀', 'ɛ́', 'ɛ̂',
+            'ɔ̀', 'ɔ́', 'ɔ̂'
+        ];
+
+        function insererCaractere(input, caractere) {
+            const debut = input.selectionStart ?? input.value.length;
+            const fin = input.selectionEnd ?? input.value.length;
+            input.value = input.value.slice(0, debut) + caractere + input.value.slice(fin);
+            const nouvellePosition = debut + caractere.length;
+            input.focus();
+            input.setSelectionRange(nouvellePosition, nouvellePosition);
+        }
+
+        document.querySelectorAll('.text-ans').forEach(input => {
+            const btnClavier = document.createElement('button');
+            btnClavier.type = 'button';
+            btnClavier.className = 'btn-clavier';
+            btnClavier.innerHTML = '<i class="fas fa-keyboard"></i>';
+            btnClavier.setAttribute('aria-label', 'Afficher le clavier de caractères Baoulé');
+
+            const panneau = document.createElement('div');
+            panneau.className = 'clavier-baoule';
+
+            clavierBaouleTouches.forEach(caractere => {
+                const toucheBtn = document.createElement('button');
+                toucheBtn.type = 'button';
+                toucheBtn.className = 'clavier-touche';
+                toucheBtn.textContent = caractere;
+                toucheBtn.addEventListener('click', () => insererCaractere(input, caractere));
+                panneau.appendChild(toucheBtn);
+            });
+
+            const espaceBtn = document.createElement('button');
+            espaceBtn.type = 'button';
+            espaceBtn.className = 'clavier-touche clavier-space';
+            espaceBtn.textContent = '␣ Espace';
+            espaceBtn.addEventListener('click', () => insererCaractere(input, ' '));
+            panneau.appendChild(espaceBtn);
+
+            const supprBtn = document.createElement('button');
+            supprBtn.type = 'button';
+            supprBtn.className = 'clavier-touche clavier-del';
+            supprBtn.innerHTML = '<i class="fas fa-delete-left"></i> Effacer';
+            supprBtn.addEventListener('click', () => {
+                const debut = input.selectionStart ?? input.value.length;
+                const fin = input.selectionEnd ?? input.value.length;
+                if (debut === fin && debut > 0) {
+                    input.value = input.value.slice(0, debut - 1) + input.value.slice(fin);
+                    input.focus();
+                    input.setSelectionRange(debut - 1, debut - 1);
+                } else {
+                    input.value = input.value.slice(0, debut) + input.value.slice(fin);
+                    input.focus();
+                    input.setSelectionRange(debut, debut);
+                }
+            });
+            panneau.appendChild(supprBtn);
+
+            btnClavier.addEventListener('click', () => {
+                const estOuvert = panneau.classList.contains('active');
+                document.querySelectorAll('.clavier-baoule.active').forEach(p => p.classList.remove('active'));
+                document.querySelectorAll('.btn-clavier.active').forEach(b => b.classList.remove('active'));
+                if (!estOuvert) {
+                    panneau.classList.add('active');
+                    btnClavier.classList.add('active');
+                }
+            });
+
+            input.insertAdjacentElement('afterend', btnClavier);
+            btnClavier.insertAdjacentElement('afterend', panneau);
+        });
+
+        document.getElementById("mode").addEventListener("click", () => {
+            document.getElementById("mode").classList.toggle("active");
+            document.body.classList.toggle("dark");
+        });
+
+        document.getElementById("menu").addEventListener("click", (e) => {
+            e.preventDefault();
+            document.querySelector(".contour").classList.toggle("active");
+            document.querySelector("#menu").classList.toggle("active");
+            document.querySelector(".menu-cache").classList.toggle("active");
+            document.getElementById("menu").innerHTML = document.querySelector(".menu-cache").classList.contains("active") ? "&#10005;" : "&#9776;";
+        });
+        
+        
+        document.getElementById("liste").addEventListener("click", () => {
+            document.querySelector(".verb").classList.toggle("visible");
+            document.querySelector("#chevron").classList.toggle("active");
+        });
+
+        document.getElementById('font-select').addEventListener('change', function () {
+            document.body.style.fontFamily = this.value;
+        });
+
+        document.getElementById('size-select').addEventListener('change', function () {
+            document.body.style.fontSize = this.value + 'px';
+        });
+
+        // 5. Compteur de visiteurs
+        async function incrementerVisiteurs() {
+            const compteurRef = doc(db, "compteurs", "visiteurs");
+            try {
+                const snap = await getDoc(compteurRef);
+                let total;
+                if (snap.exists()) {
+                    await updateDoc(compteurRef, { total: increment(1) });
+                    total = (snap.data().total || 0) + 1;
+                } else {
+                    await setDoc(compteurRef, { total: 1 });
+                    total = 1;
+                }
+                document.getElementById('visiteur-nombre').textContent = total;
+            } catch (err) {
+                console.error("Erreur compteur de visiteurs : ", err);
+                document.getElementById('visiteur-nombre').textContent = "?";
+            }
+        }
+        incrementerVisiteurs();
+
+        // 6. Avis
+        document.getElementById('btn-avis').addEventListener('click', async function () {
+            const zoneAvis = document.getElementById('avis-texte');
+            const texte = zoneAvis.value.trim();
+
+            if (!texte) {
+                alert("Veuillez écrire un avis avant de l'envoyer.");
+                return;
+            }
+
+            this.disabled = true;
+            this.textContent = "Envoi en cours...";
+
+            try {
+                await addDoc(collection(db, "avis_memoire"), {
+                    texte: texte,
+                    date: new Date().toISOString()
+                });
+                zoneAvis.value = "";
+                alert("Merci pour votre avis !");
+            } catch (err) {
+                console.error("Erreur lors de l'envoi de l'avis : ", err);
+                alert("Une erreur est survenue lors de l'envoi de votre avis.");
+            } finally {
+                this.disabled = false;
+                this.textContent = "Envoyer";
+            }
+        });
+        
+        
+        
+        setTimeout(() => {
+     document.querySelector(".conteneur").classList.add("active");  
+        },800)
+        
+        document.getElementById("annuler").addEventListener("click",() => {
+         document.querySelector(".conteneur").classList.remove("active");   
+        })
+        
+    </script>
+</body>
+</html>
