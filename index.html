@@ -910,16 +910,14 @@ table th{
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
         import { getStorage, ref, uploadBytes, getDownloadURL } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
-        // 🔥 INSÉREZ VOS PROPRES PARAMÈTRES DE CONFIGURATION FIREBASE ICI
-        const firebaseConfig = {
-            apiKey: "VOTRE_API_KEY",
-            authDomain: "VOTRE_PROJET.firebaseapp.com",
-            projectId: "VOTRE_PROJET_ID",
-            storageBucket: "VOTRE_PROJET.appspot.com",
-            messagingSenderId: "VOTRE_SENDER_ID",
-            appId: "VOTRE_APP_ID"
-        };
-
+        const Configuration Firebase = {
+    Clé API: "AIzaSy...", // Ta clé secrète trouvée sur Firebase
+    domaine d'authentification: "location-study-007.firebaseapp.com",
+    ID du projet: "location-study-007",
+    seau de stockage: "location-study-007.appspot.com",
+    expéditeur de messagerie: "123456789012", // Ton numéro d'expéditeur réel
+    appId: "1:123456789012:web:a1b2c3d4e5f6" // Ton appId réel
+};
         // Initialisation globale
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
