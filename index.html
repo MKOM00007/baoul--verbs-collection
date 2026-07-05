@@ -455,34 +455,9 @@ table th{
             margin-block: 10px;
         }
 
-        /* Zones Audio réactivées */
+        /* Désactivation visuelle des zones audio */
         .audio-zone {
-            margin-top: 12px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 10px;
-        }
-        .btn-audio {
-            background: #e74c3c;
-            color: white;
-            border: none;
-            padding: 10px 18px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-weight: bold;
-            transition: all 0.2s;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .btn-audio:hover { background: #c0392b; }
-        .btn-audio.recording {
-            background: #2ecc71;
-            animation: pulse 1.5s infinite;
-        }
-        .audio-status {
-            font-size: 0.9rem;
-            color: #7f8c8d;
-            font-style: italic;
+            display: none !important;
         }
         
          .btn-audio i {
@@ -706,10 +681,6 @@ table th{
             <h5>Situation : "The t-shirt is lying on the floor."</h5>
             <img src="https://i.ibb.co/qFXCF8WH/file-0000000087a47243922434b294fad038.png" alt="Situation 1">
             <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="q-item" data-q="img2">
@@ -717,10 +688,6 @@ table th{
             <h5>Situation : "The plate is on the table."</h5>
             <img src="https://i.ibb.co/DPTnfsnK/file-00000000db08724398cf95c88c4834fb.png" alt="Situation 2">
             <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="q-item" data-q="img3">
@@ -728,10 +695,6 @@ table th{
             <h5>Situation : "The cat is standing on the table."</h5>
             <img src="https://i.ibb.co/QjK2tTqF/file-00000000b8247243be18592670ece419.png" alt="Situation 3">
             <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="q-item" data-q="img4">
@@ -739,10 +702,6 @@ table th{
             <h5>Situation : "The bottle is on the table."</h5>
             <img src="https://i.ibb.co/gLCNGdkb/file-0000000056fc7243b1a2931c421036b6.png" alt="Situation 4">
             <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="q-item" data-q="img5">
@@ -750,10 +709,6 @@ table th{
             <h5>Situation : "The phone is on the counter."</h5>
             <img src="https://i.ibb.co/h1smN97Y/file-0000000041a87243bb767b36df88fb01.png" alt="Situation 5">
             <input type="text" class="text-ans" placeholder="Traduire la situation en Baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
     </div> 
 
@@ -763,46 +718,26 @@ table th{
         <div class="text-item" data-q="txt1">
             <span class="num">1</span> <strong>Situation :</strong> "The cup is sitting on the table." <br>
             <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="text-item" data-q="txt2">
             <span class="num">2</span> <strong>Situation :</strong> "The book is lying on the floor." <br>
             <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="text-item" data-q="txt3">
             <span class="num">3</span> <strong>Situation :</strong> "The bottle is standing on the table." <br>
             <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="text-item" data-q="txt4">
             <span class="num">4</span> <strong>Situation :</strong> "The picture is hanging on the wall." <br>
             <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
 
         <div class="text-item" data-q="txt5">
             <span class="num">5</span> <strong>Situation :</strong> "Yao is in Bouake." <br>
             <input type="text" class="text-ans" placeholder="Traduire en baoulé (Écrit)">
-            <div class="audio-zone">
-                <button type="button" class="btn-audio rec-audio"><i class="fas fa-microphone"></i> Enregistrer</button>
-                <span class="audio-status">Pas d'enregistrement</span>
-            </div>
         </div>
     </div>
     
@@ -886,9 +821,6 @@ table th{
             getFirestore, collection, addDoc,
             doc, getDoc, setDoc, updateDoc, increment
         } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-firestore.js";
-        import {
-            getStorage, ref, uploadBytes, getDownloadURL
-        } from "https://www.gstatic.com/firebasejs/10.12.0/firebase-storage.js";
 
     const firebaseConfig = {
     apiKey: "AIzaSyAhEfaVZZlE8kbjDyK3V5mNGvfB7SYOexs",
@@ -903,10 +835,8 @@ table th{
         // Initialisation globale
         const app = initializeApp(firebaseConfig);
         const db = getFirestore(app);
-        const storage = getStorage(app);
 
         let profilUtilisateur = {};
-        const enregistrementsAudio = {}; // Stocke les Blobs audio par qId
 
         // 1. Fermeture de l'overlay et enregistrement du profil
         document.getElementById('profile-form').addEventListener('submit', (e) => {
@@ -922,74 +852,10 @@ table th{
             document.getElementById('profile-overlay').style.display = 'none';
         });
 
-        // 2. Logique d'enregistrement audio avec MediaRecorder
-        let mediaRecorder;
-        let audioChunks = [];
-        let activeAudioButton = null;
-
-        async function gererEnregistrementAudio(bouton, qId) {
-            const conteneurStatut = bouton.nextElementSibling;
-
-            if (mediaRecorder && mediaRecorder.state === "recording") {
-                mediaRecorder.stop();
-                bouton.classList.remove('recording');
-                bouton.innerHTML = '<i class="fas fa-microphone"></i> Enregistrer';
-                activeAudioButton = null;
-                return;
-            }
-
-            if (activeAudioButton && activeAudioButton !== bouton) {
-                alert("Veuillez d'abord arrêter l'enregistrement en cours.");
-                return;
-            }
-
-            try {
-                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
-                audioChunks = [];
-                mediaRecorder = new MediaRecorder(stream);
-
-                mediaRecorder.ondataavailable = (event) => {
-                    if (event.data.size > 0) audioChunks.push(event.data);
-                };
-
-                mediaRecorder.onstop = () => {
-                    const audioBlob = new Blob(audioChunks, { type: 'audio/wav' });
-                    enregistrementsAudio[qId] = audioBlob;
-                    conteneurStatut.textContent = "Audio enregistré !";
-                    conteneurStatut.style.color = "green";
-                    stream.getTracks().forEach(track => track.stop());
-                };
-
-                mediaRecorder.start();
-                bouton.classList.add('recording');
-                bouton.innerHTML = '<i class="fas fa-stop"></i> Arrêter';
-                conteneurStatut.textContent = "Enregistrement en cours...";
-                conteneurStatut.style.color = "red";
-                activeAudioButton = bouton;
-
-            } catch (err) {
-                console.error("Accès microphone refusé ou non supporté :", err);
-                alert("Impossible d'accéder au microphone. Veuillez vérifier les autorisations de votre navigateur.");
-            }
-        }
-
-        document.querySelectorAll('.rec-audio').forEach(bouton => {
-            bouton.addEventListener('click', function() {
-                const itemParent = this.closest('[data-q]');
-                const qId = itemParent.getAttribute('data-q');
-                gererEnregistrementAudio(this, qId);
-            });
-        });
-
-        // 3. Traitement global et téléversement vers Firebase (Texte + Audio réactivé)
+        // 2. Traitement global et téléversement vers Firebase (Version Texte Uniquement)
         document.getElementById('btn-final-submit').addEventListener('click', async function() {
             if (!profilUtilisateur.nom) {
                 alert("Erreur : Veuillez rafraîchir la page et remplir d'abord vos informations d'identité.");
-                return;
-            }
-
-            if (mediaRecorder && mediaRecorder.state === "recording") {
-                alert("Veuillez arrêter l'enregistrement audio en cours avant de soumettre.");
                 return;
             }
 
@@ -998,47 +864,33 @@ table th{
 
             try {
                 const reponses = {};
-                const timestampDossier = Date.now();
 
-                const elementsQuestion = document.querySelectorAll('[data-q]');
-                for (const item of elementsQuestion) {
+                document.querySelectorAll('[data-q]').forEach(item => {
                     const qId = item.getAttribute('data-q');
                     const textInput = item.querySelector('.text-ans');
-                    const reponseTexte = textInput ? textInput.value.trim() : "";
-
-                    let urlTelechargementAudio = "";
-                    const blobAudio = enregistrementsAudio[qId];
-
-                    if (blobAudio) {
-                        const cheminAudio = `audios/${profilUtilisateur.nom}_${profilUtilisateur.prenom}_${timestampDossier}/${qId}.wav`;
-                        const stockageRef = ref(storage, cheminAudio);
-                        await uploadBytes(stockageRef, blobAudio);
-                        urlTelechargementAudio = await getDownloadURL(stockageRef);
-                    }
-
                     reponses[qId] = {
-                        texte: reponseTexte,
-                        audioUrl: urlTelechargementAudio
+                        texte: textInput ? textInput.value.trim() : "",
+                        audioUrl: "" 
                     };
-                }
+                });
 
                 await addDoc(collection(db, "collecte_linguistique"), {
                     locuteur: profilUtilisateur,
                     donneesBrutes: reponses
                 });
 
-                alert("Merci infiniment ! Vos réponses et enregistrements vocaux ont bien été transmis pour l'analyse de mon mémoire.");
+                alert("Merci infiniment ! Vos réponses écrites ont bien été transmises pour l'analyse linguistique de mon mémoire.");
                 window.location.reload();
 
             } catch (error) {
                 console.error("Erreur Firebase : ", error);
-                alert("Une erreur est survenue lors de l'envoi. Assurez-vous d'avoir bien configuré le forfait Blaze et activé Cloud Storage en mode test.");
+                alert("Une erreur est survenue lors de l'envoi. Assurez-vous que vos règles d'accès de sécurité Firebase Firestore sont bien configurées.");
                 this.disabled = false;
                 this.textContent = "Soumettre toutes mes réponses";
             }
         });
         
-        // 4. Clavier virtuel Baoulé
+        // 3. Clavier virtuel Baoulé
         const clavierBaouleTouches = [
             'ɛ', 'ɔ', 'ŋ', 'Ɛ', 'Ɔ', 'Ŋ',
             'à', 'á', 'â', 'è', 'é', 'ê',
@@ -1141,7 +993,7 @@ table th{
             document.body.style.fontSize = this.value + 'px';
         });
 
-        // 5. Compteur de visiteurs
+        // 4. Compteur de visiteurs
         async function incrementerVisiteurs() {
             const compteurRef = doc(db, "compteurs", "visiteurs");
             try {
@@ -1162,7 +1014,7 @@ table th{
         }
         incrementerVisiteurs();
 
-        // 6. Avis
+        // 5. Avis
         document.getElementById('btn-avis').addEventListener('click', async function () {
             const zoneAvis = document.getElementById('avis-texte');
             const texte = zoneAvis.value.trim();
